@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flex实现Sticky Footer布局</title>
+</head>
+
+<body>
+    <header>
+        <h2>Header</h2>
+    </header>
+
+    <main>
+        <h2>Main Content</h2>
+    </main>
+
+    <footer>
+        <h2>Footer</h2>
+    </footer>
+</body>
+
+<style>
+    @import url("https://fonts.googleapis.com/css?family=Gochi+Hand");
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        width: 100vw;
+        min-height: 100vh;
+        margin: 0;
+        background-color: #291642;
+        font-family: "Gochi Hand", sans-serif;
+        font-size: 100%;
+        letter-spacing: 0.1rem;
+        color: #fff;
+
+        /* Flex实现Sticky Footer布局 */
+        display: flex;
+        flex-direction: column;
+    }
+
+    header,
+    main,
+    footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    header {
+        background-color: #2196f3;
+        min-height: 15vh;
+    }
+
+    main {
+        /* 
+            以下配置能实现相同效果 
+            flex: 1 0 auto;
+            相当于：
+            flex-grow: 1; 容器有剩余空间时，main 区域会扩展
+            flex-shrink: 0; 容器有不足空间时，main 区域不会收缩
+            flex-basis: auto; main 区域高度的基准值为 main 内容自动高度
+        */
+
+        background-color: #f4f4f4;
+        color: #444;
+        overflow: hidden;
+        resize: vertical;
+    }
+
+    footer {
+        min-height: 24vh;
+        background-color: #222;
+    }
+
+    footer {
+        /* Flex实现Sticky Footer布局 */
+        margin-top: auto;
+    }
+</style>
+
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flex实现圣杯布局</title>
+</head>
+
+<body>
+    <header>
+        <h2>Header Section</h2>
+    </header>
+
+    <main>
+        <article>
+            <h2>Main Section</h2>
+        </article>
+
+        <nav>
+            <h2>Nav Section</h2>
+        </nav>
+
+        <aside>
+            <h2>Aside Section</h2>
+        </aside>
+    </main>
+
+    <footer>
+        <h2>Footer Section</h2>
+    </footer>
+</body>
+
+<style>
+    @import url("https://fonts.googleapis.com/css?family=Gochi+Hand");
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        width: 100vw;
+        min-height: 100vh;
+        margin: 0;
+        background-color: #291642;
+        font-family: "Gochi Hand", sans-serif;
+        font-size: 100%;
+        letter-spacing: 0.1rem;
+        color: #fff;
+
+        display: flex;
+        flex-direction: column;
+    }
+
+    header,
+    main,
+    footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    header {
+        background-color: #2196f3;
+        min-height: 15vh;
+    }
+
+    main {
+        background-color: #f4f4f4;
+        color: #444;
+        flex: 1;
+        min-height: 0;
+
+        display: flex;
+        align-items: stretch;
+        width: 100%;
+    }
+
+    footer {
+        min-height: 20vh;
+        background-color: #222;
+        margin-top: auto;
+    }
+
+    nav {
+        background-color: #ff9800;
+        color: #fff;
+        width: 220px;
+        /* 通过设置order值控制布局顺序，默认为0，值越大越靠后 */
+        order: -1;
+    }
+
+    article {
+        background-color: #795548;
+        color: #fff;
+        flex: 1;
+    }
+
+    aside {
+        background-color: #607d8b;
+        color: #fff;
+        width: 220px;
+    }
+
+    main h2 {
+        text-align: center;
+        margin: 2vh 0;
+    }
+
+    /* 实现响应式布局 */
+    @media screen and (max-width: 800px) {
+        main {
+            flex-direction: column;
+        }
+
+        nav,
+        aside {
+            width: 100%;
+        }
+    }
+</style>
+
+</html>

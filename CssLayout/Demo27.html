@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clamp()根据浏览器取值</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="v-width"><strong>Viewport width</strong>:<span class="v-width-value">1000px</span></div>
+        <div class="element">Element</div>
+        <div class="e-width">
+            <code>width: clamp(<span class="val-1">100px</span>, <span class="val-2">50vw</span>, <span class="val-3">500px</span>)</code>
+        </div>
+        <p><code>.element</code> width is <span class="w-actual"></span></p>
+    </div>
+</body>
+<style>
+    @import url("https://fonts.googleapis.com/css?family=Gochi+Hand");
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        background-color: #291642;
+        font-family: "Gochi Hand", sans-serif;
+        font-size: 130%;
+        letter-spacing: 0.1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .wrapper {
+        width: 100%;
+        display: flex;
+        color: #fff;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .v-width {
+        position: relative;
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
+
+    .v-width::before,
+    .v-width::after {
+        content: "";
+        display: block;
+        flex: 1;
+        height: 1px;
+        background-color: #fff;
+    }
+
+    .v-width strong,
+    .v-width-value,
+    .w-actual {
+        display: inline-flex;
+        background-color: #009688;
+        color: #fff;
+        padding: 10px 15px;
+        border-radius: 3px;
+        font-size: 15px;
+    }
+
+    .v-width strong {
+        margin-right: 5px;
+        background-color: #E91E63;
+    }
+
+    code {
+        display: inline-flex;
+        background-color: #FF5722;
+        font-family: "PT Mono";
+        padding: 10px 15px;
+        border-radius: 5px;
+    }
+
+    .dimmed {
+        opacity: 0.4;
+    }
+
+    .active {
+        font-weight: bold;
+    }
+
+    .wrapper>*+* {
+        margin-top: 1.5rem;
+    }
+
+    strong {
+        font-weight: bold;
+    }
+
+    .element {
+        min-height: 20vh;
+        border-radius: 2vh;
+        background-color: #2196f3;
+        width: clamp(100px, 50vw, 500px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    p {
+        display: inline-flex;
+        align-items: center;
+        white-space: nowrap;
+    }
+
+    @media (min-width: 1000px) {
+        .element {
+            background-color: #f36;
+        }
+    }
+
+    @media (max-width: 200px) {
+        .element {
+            background-color: #3f6;
+        }
+    }
+</style>
+
+<script>
+    let vWidthElm = document.querySelector(".v-width-value");
+    let firstVal = document.querySelector(".val-1");
+    let secondVal = document.querySelector(".val-2");
+    let threeVal = document.querySelector(".val-3");
+    let elm = document.querySelector(".element");
+    let actualWidth = document.querySelector(".w-actual");
+
+    function resizeWindow() {
+        let vWidth = window.innerWidth;
+        vWidthElm.innerHTML = vWidth + "px";
+
+        if (vWidth < 1000 && vWidth > 200) {
+            firstVal.classList.add("dimmed");
+            secondVal.classList.add("active");
+            threeVal.classList.add("dimmed");
+
+            firstVal.classList.remove("active");
+            secondVal.classList.remove("dimmed");
+            threeVal.classList.remove("active");
+        } else if (vWidth < 200) {
+            firstVal.classList.add("active");
+            secondVal.classList.add("dimmed");
+            threeVal.classList.add("dimmed");
+
+            firstVal.classList.remove("dimmed");
+            secondVal.classList.remove("active");
+            threeVal.classList.remove("active");
+        } else {
+            firstVal.classList.add("dimmed");
+            secondVal.classList.add("dimmed");
+            threeVal.classList.add("active");
+
+            firstVal.classList.remove("active");
+            secondVal.classList.remove("active");
+            threeVal.classList.remove("dimmed");
+        }
+
+        actualWidth.innerHTML = elm.getBoundingClientRect().width + "px";
+    }
+
+    resizeWindow();
+
+    window.addEventListener("resize", resizeWindow);
+</script>
+
+</html>
